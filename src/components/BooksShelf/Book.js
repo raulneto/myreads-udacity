@@ -1,8 +1,7 @@
-import React , { Component } from 'react';
+import React , { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class Book extends Component {
-
+class Book extends PureComponent {
 
     handleShelfChange = (e) => {
         let newValue = e.target.value;
