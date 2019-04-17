@@ -10,15 +10,10 @@ class Book extends Component {
     }
 
     render() {
-        const { title } = this.props.book;
+        const { book } = this.props;
 
-
-        if (this.props.book.shelf === undefined) {
-            this.props.book.shelf = 'none';
-        }
-
-        if (this.props.book.imageLinks === undefined ) {
-            this.props.book.imageLinks['thumbnail'] = ''
+        if (book.shelf === undefined) {
+            book.shelf = 'none';
         }
 
         return (
@@ -27,12 +22,16 @@ class Book extends Component {
                     <div className="book-cover"
                         style={{ width: 128,
                         height: 193,
-                        backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`
+                        backgroundImage:`url(${
+                            book.imageLinks && book.imageLinks.thumbnail
+                            ? `${book.imageLinks.thumbnail}`
+                            : `http://via.placeholder.com/128x193?text=No%20Cover`
+                            })`
                         }}
                     />
                     <div className="book-shelf-changer">
-                        <select onChange={this.handleShelfChange} defaultValue={this.props.book.shelf}>
-                            <option value="none" disabled>Move to...</option>
+                        <select onChange={this.handleShelfChange} defaultValue={book.shelf}>
+                            <option value="" disabled>Move to...</option>
                             <option value="currentlyReading" >Currently Reading</option>
                             <option value="wantToRead" >Want to Read</option>
                             <option value="read" >Read</option>
@@ -40,8 +39,8 @@ class Book extends Component {
                         </select>
                     </div>
                 </div>
-                <div className="book-title">{title}</div>
-                <div className="book-authors">{this.props.book.authors ? this.props.book.authors.join(", ") : ''}</div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.authors ? book.authors.join(", ") : ''}</div>
             </div>
         )
     }

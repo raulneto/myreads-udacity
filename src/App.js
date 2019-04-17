@@ -9,6 +9,20 @@ import { Route, Link } from 'react-router-dom'
 
 class App extends Component {
 
+	constructor(props) {
+		super(props)
+		this.shelves = [{
+			id: 'currentlyReading',
+			title: 'Currently Reading'
+		}, {
+			id: 'wantToRead',
+			title: 'Want to Read'
+		}, {
+			id: 'read',
+			title: 'Read'
+		}]
+	}
+
 	state = {
 		books: []
 	}
@@ -36,6 +50,7 @@ class App extends Component {
 		})
 	}
 
+
 	render() {
 		const { books } = this.state
 		return (
@@ -47,24 +62,17 @@ class App extends Component {
 						</div>
 						<div className="list-books-content">
 							<div>
-								<Shelf
-									title="Currently Reading"
-									cat="currentlyReading"
-									books={books.filter(bs => bs.shelf === 'currentlyReading')}
-									onBookShelfChange={this.moveBookShelf}
-								/>
-								<Shelf
-									title="Want to Read"
-									cat="wantToRead"
-									books={books.filter(bs => bs.shelf === 'wantToRead')}
-									onBookShelfChange={this.moveBookShelf}
-								/>
-								<Shelf
-									title="Read"
-									cat="read"
-									books={books.filter(bs => bs.shelf === 'read')}
-									onBookShelfChange={this.moveBookShelf}
-								/>
+								{this.shelves.map(shelf => {
+									return (
+										<Shelf
+											key={shelf.id}
+											title={shelf.title}
+											cat={shelf.id}
+											books={books.filter(bs => bs.shelf === shelf.id)}
+											onBookShelfChange={this.moveBookShelf}
+										/>
+									)
+								})}
 							</div>
 						</div>
 						<div className="open-search">

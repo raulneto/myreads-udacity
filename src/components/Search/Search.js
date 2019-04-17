@@ -111,7 +111,7 @@ class Search extends Component {
     }
 }
 
-Search.PropTypes = {
+Search.propTypes = {
     bsBooks: PropTypes.array.isRequired,
     onBookShelfChange: PropTypes.func.isRequired
 }
